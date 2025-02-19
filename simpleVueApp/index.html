@@ -6,19 +6,23 @@
         <title>A First JS APP</title>
         <link rel="stylesheet" href="styles.css" />
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+        <script src="app.js"></script>
     </head>
     <body>
         <div id="root">
+            <h1>Total tasks count is: {{ taskCount }}</h1>
+
             <label for="task">Task Title</label>
             <input type="text" id="task" v-model="enteredTask" />
-            <input type="checkbox" v-bind:checked="isChecked" />
-            <button v-on:click="addTask()">Add Task</button>
+            <!--<input type="text" id="task" v-bind:value="enteredTask" v-on:input="updateTask" />-->
+            <!--<input type="checkbox" v-bind:checked="isChecked" />-->
+            <button v-on:click="addTask">Add Task</button>
 
-            <ul>
-                <li>First Lecture</li>
-                <li v-for="task in tasks" v-bind:key="task">
+            <p v-bind:class="{ hidden: taskCount > 0 }">Please enter at least one TODO task</p>
+            <ul v-bind:class="{ hidden: taskCount === 0 }">
+                <li v-for="(task, index) in tasks" v-bind:key="task">
                     <span>{{ task }}</span>
-                    <button v-on:click="deleteTask(task)">Delete</button>
+                    <button v-on:click="deleteTask(task)" v-bind:class="{active: index === 0}">Delete</button>
                 </li>
             </ul>
         </div>

@@ -1,19 +1,22 @@
-// const buttonEl = document.querySelector('button');
-// const inputEl = document.querySelector('input');
-// const listEl = document.querySelector('ul');
-//
-// const handleClick = () => {
-//     const value = inputEl.value;
-//     const listItem = document.createElement('li');
-//
-//     listItem.textContent = value;
-//     listEl.appendChild(listItem);
-//     inputEl.value = '';
-// };
-//
-// buttonEl.addEventListener('click', handleClick);
 
 Vue.createApp({
+    computed: {
+        taskCount() {
+            return this.tasks.length;
+        },
+
+    },
+    // watch: {
+    //     taskCount(value){
+    //         if (value > 4) {
+    //             const self = this;
+    //
+    //             setTimeout(() => {
+    //                 self.tasks.splice(0, self.tasks.length);
+    //             }, 2000);
+    //         }
+    //     }
+    // },
     data() {
         return {
             tasks: [],
@@ -21,18 +24,22 @@ Vue.createApp({
             isChecked: true,
         }
     },
-    /*methods: {
-        addTask: function () {
-
-        }
-    }*/
+    // methods: {
+    //     addTask: () => {
+    //
+    //     }
+    // },
     methods: {
-        addTask(event) {
+        addTask() {
             const task = this.enteredTask;
             this.tasks.push(task);
 
             this.enteredTask = ''
+            this.taskCount += 1;
         },
+        /*updateTask(event) {
+            this.enteredTask = event.target.value;
+        },*/
         deleteTask(taskToDelete) {
             const indexToDelete = this.tasks.indexOf(taskToDelete);
             this.tasks.splice(indexToDelete, 1);

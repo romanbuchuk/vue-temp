@@ -41,3 +41,15 @@ li {
     padding: 1rem;
     border: 1px solid #838383;
 }
+
+button {
+    margin-left: 1rem;
+    border: 1px solid #838383;
+}
+button.active {
+    background-color: #f3abab;
+}
+
+.hidden {
+    visibility: hidden;
+}
