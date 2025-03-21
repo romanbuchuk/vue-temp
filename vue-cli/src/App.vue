@@ -1,47 +1,110 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+<script>
+import AddForm from '@/components/AddForm.vue';
+import TasksList from '@/components/TasksList.vue';
+
+export default {
+  components: {
+    // AddForm: AddForm,
+    AddForm,
+    // 'add-form': AddForm,
+    TasksList,
+  },
+  computed: {
+    taskCount() {
+      return this.tasks.length;
+    },
+
+  },
+  data() {
+    return {
+      tasks: [{
+        id: 1,
+        title: 'Task1',
+        isCompleted: false,
+      }],
+      // enteredTask: '',
+      // isChecked: true,
+    }
+  },
+  methods: {
+    addTask() {
+      const id = new Date().valueOf();
+      const title = '.....';
+
+      const task = this.enteredTask;
+      this.tasks.push(task);
+
+      this.enteredTask = ''
+    },
+    // deleteTask(taskToDelete) {
+    //   const indexToDelete = this.tasks.indexOf(taskToDelete);
+    //   this.tasks.splice(indexToDelete, 1);
+    // }
+  },
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="assets/logo.svg" width="125" height="125" />
+  <!-- Extract as a separate component -->
+  <h1>Total tasks count is: {{ taskCount }}</h1>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <add-form :addTask="addTask"></add-form>
+<!--  <label for="task">Task Title</label>
+  <input type="text" id="task" v-model="enteredTask" />
+  <button v-on:click="addTask">Add Task</button>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <p v-bind:class="{ hidden: taskCount > 0 }">Please enter at least one TODO task</p>-->
+  <tasks-list :tasks="tasks"></tasks-list>
+<!--  <ul v-bind:class="{ hidden: taskCount === 0 }">
+    <li v-for="(task, index) in tasks" v-bind:key="task">
+      <span>{{ task }}</span>
+      <button v-on:click="deleteTask(task)" v-bind:class="{active: index === 0}">Delete</button>
+    </li>
+  </ul>-->
+<!--  <add-form></add-form>-->
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<style>
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+html {
+  font-size: 10px;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+#root {
+  margin: 15rem auto;
+  max-width: 800px;
+  padding: 1rem;
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
+
+h1 {
+  font-weight: 700;
+}
+
+ul {
+  list-style: none;
+  margin: 1rem 0.5rem;
+}
+
+li {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #838383;
+}
+
+button {
+  margin-left: 1rem;
+  border: 1px solid #838383;
+}
+button.active {
+  background-color: #f3abab;
+}
+
 </style>
