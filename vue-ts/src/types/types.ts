@@ -1,7 +1,9 @@
 export type TTask = {
-    id: number;
+    id: string;
     title: string;
     isCompleted: boolean;
+    shortDescription: string;
+    description?: string;
 };
 
-export type TAddTask = (task: string | undefined) => void;
+export type TDeleteTask = (taskId: string) => void;
